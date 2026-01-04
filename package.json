@@ -1,0 +1,58 @@
+{
+  "name": "vscode-json-logs",
+  "displayName": "JSON Log Viewer",
+  "description": "A VS Code extension to preview JSON formatted log files with filtering and search capabilities",
+  "version": "0.0.1",
+  "publisher": "uffy",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other",
+    "Visualization"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "jsonLogs.preview",
+        "title": "JSON Logs: Preview",
+        "icon": "$(open-preview)"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "jsonLogs.preview",
+          "when": "resourceExtname == .log || resourceFilename =~ /\\.log$/",
+          "group": "navigation"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "jsonLogs.preview",
+          "when": "resourceExtname == .log || resourceFilename =~ /\\.log$/",
+          "group": "navigation"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "jsonLogs.preview"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.3.0"
+  }
+}
+
