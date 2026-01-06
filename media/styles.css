@@ -247,11 +247,13 @@ body {
 }
 
 .log-entry.highlight-flash {
-  animation: flash-highlight 2s ease-out;
+  animation: flash-highlight 1.5s ease-in-out;
 }
 
 @keyframes flash-highlight {
-  0% { background-color: rgba(78, 205, 196, 0.4); }
+  0% { background-color: rgba(255, 235, 59, 0.3); }
+  25% { background-color: transparent; }
+  50% { background-color: rgba(255, 235, 59, 0.3); }
   100% { background-color: transparent; }
 }
 
@@ -313,22 +315,28 @@ body {
 
 .reveal-btn {
   display: none;
-  background: none;
-  border: none;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--accent-blue);
+  border-radius: 4px;
   color: var(--accent-blue);
   cursor: pointer;
-  padding: 4px;
-  font-size: 16px;
-  opacity: 0.7;
+  padding: 4px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  opacity: 0.9;
   position: absolute;
-  right: 8px;
+  right: 16px;
   top: 50%;
   transform: translateY(-50%);
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .reveal-btn:hover {
   opacity: 1;
-  color: var(--accent-cyan);
+  background: var(--accent-blue);
+  color: white;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
 }
 
 /* Only show reveal button when search is active and hovering log entry */
