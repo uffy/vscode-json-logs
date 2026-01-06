@@ -245,6 +245,15 @@ body {
   display: none;
 }
 
+.log-entry.highlight-flash {
+  animation: flash-highlight 2s ease-out;
+}
+
+@keyframes flash-highlight {
+  0% { background-color: rgba(78, 205, 196, 0.4); }
+  100% { background-color: transparent; }
+}
+
 /* Log time */
 .log-time {
   color: var(--text-secondary);
@@ -298,6 +307,30 @@ body {
 .log-message {
   color: var(--text-primary);
   margin-right: 8px;
+  position: relative;
+}
+
+.reveal-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--accent-blue);
+  cursor: pointer;
+  padding: 0 4px;
+  margin-left: 4px;
+  font-size: 14px;
+  vertical-align: middle;
+  opacity: 0.7;
+}
+
+.reveal-btn:hover {
+  opacity: 1;
+  color: var(--accent-cyan);
+}
+
+/* Only show reveal button when search is active and hovering message */
+body.search-active .log-message:hover .reveal-btn {
+  display: inline-block;
 }
 
 /* Log fields */
@@ -586,4 +619,3 @@ body {
   border-radius: 8px;
   margin: 16px;
 }
-

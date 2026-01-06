@@ -137,7 +137,10 @@
       <span class="log-time" ${callerTooltip ? `title="${callerTooltip}"` : ''}>[${escapeHtml(log.time)}]</span>
       <span class="log-level ${log.level}">${log.level}</span>
       ${log.name ? `<span class="log-name">${escapeHtml(log.name)}:</span>` : ''}
-      <span class="log-message">${escapeHtml(log.message)}${errorMessage}</span>
+      <span class="log-message">
+        ${escapeHtml(log.message)}${errorMessage}
+        <button class="reveal-btn" title="Reveal in all logs">⤢</button>
+      </span>
       ${fieldsHtml}
     `;
   }
@@ -394,6 +397,7 @@
       clearTimeout(searchTimeout);
       searchTimeout = setTimeout(() => {
         currentSearch = e.target.value;
+        document.body.classList.toggle('search-active', !!currentSearch);
         updateVisibility();
       }, 200);
     });
@@ -406,6 +410,31 @@
 
     // Click on log entry to show fields
     logContainer.addEventListener('click', (e) => {
+      // Check if clicked on reveal button
+      const revealBtn = e.target.closest('.reveal-btn');
+      if (revealBtn) {
+        e.stopPropagation();
+        const entry = revealBtn.closest('.log-entry');
+        
+        // Clear search
+        currentSearch = '';
+        searchInput.value = '';
+        document.body.classList.remove('search-active');
+        
+        // Show all logs
+        updateVisibility();
+        
+        // Scroll to element
+        entry.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        
+        // Add highlight flash
+        entry.classList.remove('highlight-flash'); // reset if already animating
+        void entry.offsetWidth; // trigger reflow
+        entry.classList.add('highlight-flash');
+        
+        return;
+      }
+
       // Check if clicked on fields toggle button
       const toggleBtn = e.target.closest('.fields-toggle');
       if (toggleBtn) {
