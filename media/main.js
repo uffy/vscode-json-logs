@@ -56,6 +56,16 @@
       
       try {
         const parsed = JSON.parse(line);
+        
+        // Prepare fields with cost as the first field if present
+        const fields = {};
+        if (parsed.cost) {
+          fields.cost = parsed.cost;
+        }
+        if (parsed.fields) {
+          Object.assign(fields, parsed.fields);
+        }
+
         logs.push({
           index: i,
           raw: line,
@@ -63,8 +73,9 @@
           level: (parsed.level || 'INFO').toUpperCase(),
           name: parsed.name || '',
           message: parsed.message || '',
-          fields: parsed.fields || {},
-          caller: parsed.caller || ''
+          fields: fields,
+          caller: parsed.caller || '',
+          error: parsed.error || ''
         });
       } catch (e) {
         // If not valid JSON, try to parse as plain text
@@ -76,7 +87,8 @@
           name: '',
           message: line,
           fields: {},
-          caller: ''
+          caller: '',
+          error: ''
         });
       }
     }
@@ -119,12 +131,13 @@
   function createLogEntryHTML(log) {
     const fieldsHtml = createFieldsPreviewHTML(log.fields);
     const callerTooltip = log.caller ? escapeHtml(log.caller) : '';
+    const errorMessage = log.error ? `: ${escapeHtml(log.error)}` : '';
     
     return `
       <span class="log-time" ${callerTooltip ? `title="${callerTooltip}"` : ''}>[${escapeHtml(log.time)}]</span>
       <span class="log-level ${log.level}">${log.level}</span>
       ${log.name ? `<span class="log-name">${escapeHtml(log.name)}:</span>` : ''}
-      <span class="log-message">${escapeHtml(log.message)}</span>
+      <span class="log-message">${escapeHtml(log.message)}${errorMessage}</span>
       ${fieldsHtml}
     `;
   }

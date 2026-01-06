@@ -1,9 +1,14 @@
 {
-  "name": "vscode-json-logs",
-  "displayName": "JSON Log Viewer",
+  "name": "uffy-json-logs",
+  "displayName": "Uffy JSON Logs",
   "description": "A VS Code extension to preview JSON formatted log files with filtering and search capabilities",
   "version": "0.0.1",
   "publisher": "uffy",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/uffy/vscode-json-logs"
+  },
+  "license": "MIT",
   "engines": {
     "vscode": "^1.85.0"
   },
