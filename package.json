@@ -2,7 +2,7 @@
   "name": "uffy-json-logs",
   "displayName": "Uffy JSON Logs",
   "description": "A VS Code extension to preview JSON formatted log files with filtering and search capabilities",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "uffy",
   "repository": {
     "type": "git",

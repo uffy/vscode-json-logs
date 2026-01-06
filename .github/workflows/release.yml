@@ -1,0 +1,48 @@
+name: Release Extension
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Compile
+        run: npm run compile
+
+      - name: Install vsce and ovsx
+        run: npm install -g @vscode/vsce ovsx
+
+      - name: Package Extension
+        run: vsce package
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: "*.vsix"
+          generate_release_notes: true
+
+      - name: Publish to VS Code Marketplace
+        run: vsce publish -p ${{ secrets.VSCE_PAT }}
+        continue-on-error: true
+
+      - name: Publish to Open VSX Registry
+        run: ovsx publish -p ${{ secrets.OVSX_PAT }}
+        continue-on-error: true
