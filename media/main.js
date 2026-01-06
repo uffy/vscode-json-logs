@@ -137,11 +137,9 @@
       <span class="log-time" ${callerTooltip ? `title="${callerTooltip}"` : ''}>[${escapeHtml(log.time)}]</span>
       <span class="log-level ${log.level}">${log.level}</span>
       ${log.name ? `<span class="log-name">${escapeHtml(log.name)}:</span>` : ''}
-      <span class="log-message">
-        ${escapeHtml(log.message)}${errorMessage}
-        <button class="reveal-btn" title="Reveal in all logs">⤢</button>
-      </span>
+      <span class="log-message">${escapeHtml(log.message)}${errorMessage}</span>
       ${fieldsHtml}
+      <button class="reveal-btn" title="Reveal in all logs">⤢</button>
     `;
   }
 
@@ -425,7 +423,7 @@
         updateVisibility();
         
         // Scroll to element
-        entry.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        entry.scrollIntoView({ block: 'center', behavior: 'auto' });
         
         // Add highlight flash
         entry.classList.remove('highlight-flash'); // reset if already animating

@@ -232,9 +232,10 @@ body {
 .log-entry {
   display: flex;
   flex-wrap: wrap;
-  padding: 6px 16px;
+  padding: 6px 40px 6px 16px;
   border-bottom: 1px solid var(--border-color);
   transition: background-color 0.15s;
+  position: relative;
 }
 
 .log-entry:hover {
@@ -316,11 +317,13 @@ body {
   border: none;
   color: var(--accent-blue);
   cursor: pointer;
-  padding: 0 4px;
-  margin-left: 4px;
-  font-size: 14px;
-  vertical-align: middle;
+  padding: 4px;
+  font-size: 16px;
   opacity: 0.7;
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .reveal-btn:hover {
@@ -328,9 +331,9 @@ body {
   color: var(--accent-cyan);
 }
 
-/* Only show reveal button when search is active and hovering message */
-body.search-active .log-message:hover .reveal-btn {
-  display: inline-block;
+/* Only show reveal button when search is active and hovering log entry */
+body.search-active .log-entry:hover .reveal-btn {
+  display: block;
 }
 
 /* Log fields */
